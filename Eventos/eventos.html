@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Eventos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Menú superior -->
+  <header class="navbar">
+    <nav>
+      <ul>
+        <li><a href="../Inicio/home.html">Inicio</a></li>
+        <li><a href="eventos.html" class="active">Mis Eventos</a></li>
+        <li><a href="../Organizaciones/organizaciones.html">Organizaciones</a></li>
+      </ul>
+    </nav>
+    <div class="user-actions">
+      <a href="notificaciones.html" class="bell">🔔</a>
+      <a href="../Perfil/perfil.html">
+        <img src="usuario.png" alt="Perfil" class="avatar">
+      </a>
+    </div>
+  </header>
+
+  <!-- Contenedor principal -->
+  <main class="container">
+    <section class="card">
+      <div class="header-card">
+        <h2>Eventos</h2>
+        <div class="search-box">
+          <button class="filter">🔽 Filtrar</button>
+          <input type="text" placeholder="Valor a buscar">
+          <button id="addEventBtn" class="add">➕</button>
+        </div>
+      </div>
+
+      <!-- Tabla -->
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Fecha Inicio</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="5" class="empty">No hay eventos registrados</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Modal de registro -->
+  <div id="eventModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Registrar nuevo evento</h2>
+
+      <form class="event-form">
+        <div class="form-grid">
+          <label>Código</label>
+          <input type="text" name="codigo">
+
+          <label>Nombre</label>
+          <input type="text" name="nombre">
+
+          <label>Espacio</label>
+          <input type="text" name="espacio" placeholder="Ej: Auditorio, salón...">
+
+          <label>Tipo de evento</label>
+          <select name="tipo">
+            <option value="academico">Académico</option>
+            <option value="ludico">Lúdico</option>
+          </select>
+
+          <label>Fecha Inicio</label>
+          <input type="date" name="fecha_inicio">
+
+          <label>Fecha Finalización</label>
+          <input type="date" name="fecha_fin">
+
+          <label>Lugar</label>
+          <input type="text" name="lugar">
+        </div>
+
+        <label>Descripción</label>
+        <textarea name="descripcion" rows="4"></textarea>
+
+        <!-- Organizaciones -->
+        <div class="org-section">
+          <label>Organizaciones externas</label>
+          <div id="orgContainer"></div>
+          <button type="button" id="addOrgBtn">+ Agregar organización</button>
+        </div>
+
+        <!-- Responsables -->
+        <div class="org-section">
+          <label>Responsables</label>
+          <div id="respContainer"></div>
+          <button type="button" id="addRespBtn">+ Agregar responsable</button>
+        </div>
+
+        <button type="submit" class="save-btn">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // --- Modal control ---
+    const modal = document.getElementById("eventModal");
+    const openBtn = document.getElementById("addEventBtn");
+    const closeBtn = document.getElementById("closeModal");
+
+    openBtn.onclick = () => modal.style.display = "block";
+    closeBtn.onclick = () => modal.style.display = "none";
+    window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
+
+    // --- Organizaciones dinámicas ---
+    const orgContainer = document.getElementById("orgContainer");
+    const addOrgBtn = document.getElementById("addOrgBtn");
+
+    addOrgBtn.addEventListener("click", () => {
+      const orgDiv = document.createElement("div");
+      orgDiv.classList.add("org-item");
+
+      orgDiv.innerHTML = `
+        <input type="text" name="organizacion[]" placeholder="Nombre de la organización">
+        <input type="file" name="aval[]" accept="application/pdf">
+        <button type="button" class="remove-org">🗑</button>
+      `;
+
+      orgContainer.appendChild(orgDiv);
+      orgDiv.querySelector(".remove-org").addEventListener("click", () => orgDiv.remove());
+    });
+
+    // --- Responsables dinámicos ---
+    const respContainer = document.getElementById("respContainer");
+    const addRespBtn = document.getElementById("addRespBtn");
+
+    addRespBtn.addEventListener("click", () => {
+      const respDiv = document.createElement("div");
+      respDiv.classList.add("org-item");
+
+      respDiv.innerHTML = `
+        <input type="text" name="responsable[]" placeholder="Nombre del responsable">
+        <select name="rol_responsable[]">
+          <option value="docente">Docente</option>
+          <option value="estudiante">Estudiante</option>
+        </select>
+        <input type="file" name="doc_responsable[]" accept="application/pdf">
+        <button type="button" class="remove-org">🗑</button>
+      `;
+
+      respContainer.appendChild(respDiv);
+      respDiv.querySelector(".remove-org").addEventListener("click", () => respDiv.remove());
+    });
+  </script>
+</body>
+</html>
