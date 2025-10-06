@@ -265,10 +265,29 @@ header {
 
 .dynamic-group {
   display: flex;
+  flex-wrap: wrap;          /* ✅ Permite que los elementos salten de línea */
   gap: 8px;
   margin-bottom: 6px;
   align-items: center;
+  width: 100%;              /* ✅ Ocupa todo el ancho disponible */
 }
+
+.dynamic-group input[type="text"],
+.dynamic-group select {
+  flex: 1 1 45%;            /* ✅ El campo de texto ocupa espacio flexible */
+  min-width: 200px;
+}
+
+.dynamic-group input[type="file"] {
+  flex: 1 1 45%;            /* ✅ El input file también se adapta */
+  min-width: 200px;
+}
+
+.dynamic-group .remove-btn {
+  flex: 0 0 auto;           /* ✅ El botón “x” mantiene su tamaño */
+  align-self: center;
+}
+
 
 .dynamic-group input[type="text"] {
   flex: 1;
