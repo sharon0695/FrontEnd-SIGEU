@@ -5,83 +5,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil</title>
   <link rel="stylesheet" href="stylesP.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="main-header">
+  <!-- ======= HEADER ======= -->
+  <header>
     <nav class="navbar">
-      <ul class="nav-links">
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Mis Eventos</a></li>
-        <li><a href="#">Organizaciones</a></li>
-      </ul>
+      <div class="nav-left">
+        <a href="inicio.html">Inicio</a>
+        <a href="../Eventos/eventos.html">Eventos</a>
+        <a href="../Organizaciones/organizaciones.html">Organizaciones</a>
+      </div>
+
       <div class="nav-icons">
-        <a href="#" class="icon-btn" id="bell-link">
-          <i class="fa-regular fa-bell"></i>
-        </a>
-        <a href="#" class="profile-link" id="profile-link">
-          <img src="img/perfil.png" alt="Perfil" class="user-avatar">
-        </a>
+        <span class="material-symbols-outlined icon" id="notificaciones">notifications</span>
+        <span class="material-symbols-outlined profile-pic" id="perfil">account_circle</span>
       </div>
     </nav>
   </header>
 
-  <!-- Contenedor del perfil -->
-  <main class="profile-container">
-    <div class="profile-card">
+  <!-- ======= PERFIL ======= -->
+  <main class="main-container">
+    <section class="profile-card">
       <div class="profile-header">
-        <img src="img/perfil.png" alt="Avatar" class="profile-avatar-large">
+        <img src="img/perfil.png" alt="Avatar" class="profile-avatar">
         <h2>PEPITO PEREZ CASTRO</h2>
       </div>
+      <div></div>
 
       <div class="profile-info">
         <h3>Información del perfil</h3>
         <p><strong>Correo electrónico:</strong> pepito.perez@institucion.edu.co</p>
         <p><strong>Número de teléfono:</strong> 3000000000</p>
-        <a href="#" id="edit-profile-btn" class="edit-link">Editar perfil</a>
+        <a href="#" id="editProfileBtn" class="edit-link">Editar perfil</a>
       </div>
-    </div>
+    </section>
   </main>
 
-  <!-- Modal para editar perfil -->
+  <!-- ======= BOTÓN DE CERRAR SESIÓN ======= -->
+  <div class="logout-container">
+    <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
+  </div>
+
+  <!-- ======= MODAL EDITAR PERFIL ======= -->
   <div id="editProfileModal" class="modal">
     <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Editar perfil</h2>
+      <div class="modal-header">
+        <h3>Editar perfil</h3>
+        <span class="close" id="closeModal">&times;</span>
+      </div>
 
       <form class="edit-form">
-        <label for="new-avatar">Foto de perfil</label>
-        <div class="avatar-upload">
-          <img id="preview-avatar" src="img/perfil.png" alt="Vista previa">
-          <input type="file" id="new-avatar" accept="image/*">
+        <div class="form-group">
+          <label for="new-avatar">Foto de perfil</label>
+          <div class="avatar-upload">
+            <img id="preview-avatar" src="img/perfil.png" alt="Vista previa">
+            <input type="file" id="new-avatar" accept="image/*">
+          </div>
         </div>
 
-        <label for="new-phone">Número de teléfono</label>
-        <input type="tel" id="new-phone" placeholder="Ingrese nuevo número">
+        <div class="form-group">
+          <label for="new-phone">Número de teléfono</label>
+          <input type="tel" id="new-phone" placeholder="Ingrese nuevo número">
+        </div>
 
-        <label for="current-password">Contraseña actual</label>
-        <input type="password" id="current-password" placeholder="Ingrese su contraseña actual">
+        <div class="form-group">
+          <label for="current-password">Contraseña actual</label>
+          <input type="password" id="current-password" placeholder="Ingrese su contraseña actual">
+        </div>
 
-        <label for="new-password">Nueva contraseña</label>
-        <input type="password" id="new-password" placeholder="Ingrese nueva contraseña">
+        <div class="form-group">
+          <label for="new-password">Nueva contraseña</label>
+          <input type="password" id="new-password" placeholder="Ingrese nueva contraseña">
+        </div>
 
         <button type="submit" class="save-btn">Guardar cambios</button>
       </form>
     </div>
   </div>
 
-  <script src="https://kit.fontawesome.com/a2e0e6ad62.js" crossorigin="anonymous"></script>
-
+  <!-- ======= SCRIPT ======= -->
   <script>
-    // Abrir y cerrar modal
     const modal = document.getElementById("editProfileModal");
-    const btn = document.getElementById("edit-profile-btn");
-    const closeBtn = document.querySelector(".close");
+    const openBtn = document.getElementById("editProfileBtn");
+    const closeBtn = document.getElementById("closeModal");
 
-    btn.onclick = () => modal.style.display = "block";
+    openBtn.onclick = (e) => {
+      e.preventDefault();
+      modal.style.display = "flex";
+    };
     closeBtn.onclick = () => modal.style.display = "none";
-    window.onclick = e => { if (e.target == modal) modal.style.display = "none"; };
+    window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
 
     // Vista previa de imagen
     const fileInput = document.getElementById('new-avatar');
@@ -90,6 +105,14 @@
       const file = e.target.files[0];
       if (file) preview.src = URL.createObjectURL(file);
     });
+
+    // Cerrar sesión
+    document.getElementById("logoutBtn").onclick = () => {
+      if (confirm("¿Seguro que quieres cerrar sesión?")) {
+        window.location.href = "../InicioSesion/index.html"; 
+      }
+    };
   </script>
+
 </body>
 </html>

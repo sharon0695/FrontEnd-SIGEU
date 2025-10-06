@@ -53,14 +53,14 @@ header {
 .nav-icons {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 15px;
 }
 
 .icon,
 .profile-pic {
-  width: 30px;
-  height: 30px;
-  object-fit: cover;
+  font-family: "Material Symbols Outlined";
+  font-size: 28px;
+  color: #333;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -68,6 +68,7 @@ header {
 .icon:hover,
 .profile-pic:hover {
   transform: scale(1.1);
+  color: #6c63ff;
 }
 
 /* ========== CONTENEDOR PRINCIPAL ========== */
