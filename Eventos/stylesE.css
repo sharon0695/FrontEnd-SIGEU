@@ -308,3 +308,9 @@ header {
 .save-btn:hover {
   background-color: #e45a5a;
 }
+
+.modal-content {
+  max-height: 90vh;         /* ✅ Evita que se salga de la pantalla */
+  overflow-y: auto;         /* ✅ Permite hacer scroll si es necesario */
+}
+
